@@ -306,9 +306,10 @@ exclude:
   - docs/
   - vendor
   - vendor/
-  
+  - photography/
+  - _plugins/jekyll-exiftag-mod.rb.disabled # Exclude the disabled plugin file
 
-incude:
+include:
   - _plugins
 
 plugins:
@@ -321,10 +322,6 @@ plugins:
 # exiftag:
 #  sources:
 #    - images/photography #Set to location of photos
-
-# Exclude photography pages temporarily to avoid EXIF issues
-exclude:
-  - photography/
 
 #MiniMagick
 #https://github.com/zroger/jekyll-minimagick
