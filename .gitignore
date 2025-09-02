@@ -1,4 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
+### Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
 ### Ruby template
 *.gem
 *.rbc
