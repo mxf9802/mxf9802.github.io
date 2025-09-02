@@ -21,6 +21,7 @@ author: Mohsin Farooq
 
 navbar-links:
   About Me: "aboutme"
+  Projects: "projects"
 
 ################
 # --- Logo --- #
@@ -132,12 +133,12 @@ page-col: "#FFFFFF"
 text-col: "#404040"
 link-col: "#008AFF"
 hover-col: "#0085A1"
-navbar-col: "#EAEAEA"
-navbar-text-col: "#404040"
-navbar-border-col: "#DDDDDD"
-footer-col: "#EAEAEA"
-footer-text-col: "#777777"
-footer-link-col: "#404040"
+navbar-col: "#FFFFFF"
+navbar-text-col: "#1f2937"
+navbar-border-col: "#e5e7eb"
+footer-col: "#f8fafc"
+footer-text-col: "#6b7280"
+footer-link-col: "#374151"
 footer-hover-col: "#0085A1"
 
 # Alternatively, the navbar, footer, and page background can be set to an image
@@ -153,9 +154,9 @@ footer-hover-col: "#0085A1"
 # For any extra visual customization, you can include additional CSS files in every page on your site. List any custom CSS files here
 site-css:
  - "/assets/css/timeline.css"
- - "/assets/css/grayscale.css" 
  - "/assets/css/jekyll-photo-gallery.css"
  - "/assets/css/justifiedGallery.min.css"
+ - "/assets/css/custom-navbar.css"
 
 # If you have common JavaScript files that should be included in every page, list them here
 site-js:
@@ -278,6 +279,15 @@ defaults:
       social-share: true # add social media sharing buttons to all blog posts
   -
     scope:
+      path: "projects/_posts"
+      type: "posts"
+    values:
+      layout: "project-post"
+      comments: false
+      social-share: false
+      category: "projects"
+  -
+    scope:
       path: "" # any file that's not a post will be a "page" layout by default
     values:
       layout: "page"
@@ -307,9 +317,14 @@ plugins:
   - jekyll-sitemap
 
 #Jekyll-Photo-Gallery Settings
-exiftag:
- sources:
-   - images/photography #Set to location of photos
+# Temporarily disabled due to EXIF data issues
+# exiftag:
+#  sources:
+#    - images/photography #Set to location of photos
+
+# Exclude photography pages temporarily to avoid EXIF issues
+exclude:
+  - photography/
 
 #MiniMagick
 #https://github.com/zroger/jekyll-minimagick

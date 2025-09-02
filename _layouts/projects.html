@@ -1,0 +1,278 @@
+---
+layout: base
+---
+
+{% include header.html type="page" %}
+
+<main class="{% if page.full-width %} container-fluid {% else %} container-md {% endif %}">
+  <div class="row">
+    <div class="{% if page.full-width %} col {% else %} col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 {% endif %}">
+      {% if page.before-content %}
+        <div class="before-content">
+          {% for file in page.before-content %}
+            {% include {{ file }} %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {{ content }}
+      
+      {% assign projects = site.categories.projects %}
+      {% if projects %}
+        {% assign projects = projects | sort: 'date' | reverse %}
+      {% endif %}
+      
+      {% if projects.size > 0 %}
+        <div class="projects-grid">
+          {% for project in projects %}
+            <div class="project-card">
+              <a href="{{ project.url | relative_url }}" class="project-link">
+                <div class="project-image">
+                  {% if project.thumbnail-img %}
+                    <img src="{{ project.thumbnail-img | relative_url }}" alt="{{ project.title }}" class="project-thumbnail">
+                  {% elsif project.cover-img %}
+                    {% if project.cover-img.first %}
+                      <img src="{{ project.cover-img[0].first.first | relative_url }}" alt="{{ project.title }}" class="project-thumbnail">
+                    {% else %}
+                      <img src="{{ project.cover-img | relative_url }}" alt="{{ project.title }}" class="project-thumbnail">
+                    {% endif %}
+                  {% else %}
+                    <!-- Default placeholder image if no image is specified -->
+                    <div class="project-placeholder">
+                      <i class="fas fa-tools"></i>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="project-content">
+                  <h3 class="project-title">{{ project.title }}</h3>
+                  {% if project.subtitle %}
+                    <p class="project-subtitle">{{ project.subtitle }}</p>
+                  {% endif %}
+                  <div class="project-meta">
+                    <span class="project-date">
+                      {% assign date_format = site.date_format | default: "%B %Y" %}
+                      {{ project.date | date: date_format }}
+                    </span>
+                    {% if project.tags.size > 0 %}
+                      <div class="project-tags">
+                        {% for tag in project.tags limit: 3 %}
+                          <span class="project-tag">{{ tag }}</span>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                  {% if project.excerpt %}
+                    <p class="project-excerpt">{{ project.excerpt | strip_html | truncatewords: 20 }}</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="no-projects">
+          <div class="no-projects-content">
+            <i class="fas fa-tools" style="font-size: 4rem; color: #d1d5db; margin-bottom: 1rem;"></i>
+            <h3>No projects yet</h3>
+            <p>Projects will appear here once you add them using the new easy project system.</p>
+            <p><small>Check the <code>projects_data/README.md</code> file for instructions on how to add projects.</small></p>
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if page.after-content %}
+        <div class="after-content">
+          {% for file in page.after-content %}
+            {% include {{ file }} %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% include comments.html %}
+    </div>    
+  </div>
+</main>
+
+<style>
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-thumbnail {
+  transform: scale(1.05);
+}
+
+.project-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+}
+
+.project-content {
+  padding: 1.5rem;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  line-height: 1.3;
+}
+
+.project-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+  font-style: italic;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-date {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-tag {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.project-excerpt {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.no-projects {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-top: 2rem;
+}
+
+.no-projects-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.no-projects h3 {
+  color: #374151;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.no-projects p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.no-projects code {
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .project-content {
+    padding: 1.25rem;
+  }
+  
+  .project-title {
+    font-size: 1.25rem;
+  }
+  
+  .no-projects {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    gap: 1rem;
+  }
+  
+  .project-content {
+    padding: 1rem;
+  }
+  
+  .project-image {
+    height: 180px;
+  }
+  
+  .no-projects {
+    padding: 2rem 1rem;
+  }
+}
+</style>

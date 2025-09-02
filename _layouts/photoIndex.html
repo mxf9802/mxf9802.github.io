@@ -72,7 +72,7 @@ layout: base
         title: "{{ photo.title }}",
         url: "{{ site.url }}/photography/{{ photo.title | toStub }}/",
         thumbnail: "{{ site.url }}/images/photography/thumbnails/{{ photo.img }}.jpg",
-        date: "{% exiftag date_time_original,, %}{{ photo.img }}.jpg{% endexiftag %}"
+        date: "{{ photo.date | default: 'Unknown' }}"
     });
     //{% endfor %}
 

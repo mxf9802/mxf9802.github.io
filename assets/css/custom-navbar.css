@@ -1,0 +1,39 @@
+/* Force modern white navbar */
+.navbar-custom {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-nav .nav-link {
+  color: #1f2937 !important;
+}
+
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-nav .nav-link:hover {
+  color: #0085A1 !important;
+}
+
+.navbar-custom .navbar-toggler {
+  border-color: #e5e7eb !important;
+}
+
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2831, 41, 55, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Ensure dropdown menus are also white */
+.navbar-custom .nav-item.dropdown .dropdown-menu {
+  background-color: #FFFFFF !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.navbar-custom .nav-item.dropdown .dropdown-menu .dropdown-item {
+  background-color: #FFFFFF !important;
+  color: #1f2937 !important;
+}
+
+.navbar-custom .nav-item.dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #f8fafc !important;
+  color: #0085A1 !important;
+}
